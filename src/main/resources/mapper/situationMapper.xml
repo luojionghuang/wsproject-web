@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ljh.mapper.SituationMapper">
+	<resultMap type="Situation" id="situationMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="sort" property="sort" />
+	</resultMap>
+	<select id="loadSituations" resultMap="situationMap">
+		select id, name, sort from situation
+		order by sort asc
+	</select>
+	<select id="loadSituationsByParams" resultMap="situationMap">
+		select id, name, sort from situation
+		order by sort asc
+		limit #{start}, #{pageSize}
+	</select>
+	<insert id="insertSituation" parameterType="Situation">
+		insert into situation(id, name, sort)
+		values(#{situation.id}, #{situation.name}, #{situation.sort})
+	</insert>
+	<delete id="delSituationById">
+		delete from situation where id=#{id}
+	</delete>
+</mapper>

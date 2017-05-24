@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.ljh.mapper.RectificationMainMapper">
+	<resultMap type="RectificationMain" id="rectificationMainMap">
+		<id column="id" property="id" />
+		<result column="enterprise_id" property="enterpriseId" />
+		<result column="check_date" property="checkDate" />
+		<result column="check_person" property="checkPerson" />
+		<result column="duty_unit" property="dutyUnit" />
+		<result column="duty_person" property="dutyPerson" />
+		<result column="finish_date" property="finishDate" />
+		<result column="reviewed" property="reviewed" />
+		<result column="recorded" property="recorded" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<resultMap type="RectificationMainBranch" id="rectificationMainBranchMap">
+		<id column="id" property="id" />
+		<result column="check_date" property="checkDate" />
+		<result column="enterprise_name" property="enterpriseName" />
+		<result column="reviewed" property="reviewed" />
+		<result column="recorded" property="recorded" />
+	</resultMap>
+	<select id="loadRectificationMainById" resultMap="rectificationMainBranchMap">
+		select id, enterprise_id, check_date, check_person, duty_unit, duty_person,
+		finish_date, reviewed, recorded, remark
+		from rectification_main
+		where id=#{id}
+	</select>
+	<select id="loadRectificationMainBranchsByParams" resultMap="rectificationMainBranchMap" parameterType="Map">
+		select a.id, b.name as enterprise_name, a.check_date, a.reviewed, a.recorded
+		from rectification_main a
+		left join enterprise b on a.enterprise_id=b.id
+		order by a.check_date desc
+		limit #{start}, #{pageSize}
+	</select>
+	<insert id="insertRectificationMain" parameterType="RectificationMain">
+		insert into rectification_main(id, enterprise_id, check_date, check_person, duty_unit,
+		duty_person, finish_date, reviewed, recorded)
+		values(#{main.id}, #{main.enterpriseId}, #{main.checkDate}, #{main.checkPerson}, #{main.dutyUnit},
+		#{main.dutyPerson}, #{main.finishDate}, #{main.isReviewed}, #{main.isRecorded}), #{main.remark}
+	</insert>
+</mapper>
