@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import per.ljh.bean.RectificationMain;
 import per.ljh.bean.branch.RectificationMainBranch;
+import per.ljh.bean.ext.RectificationMainExt;
 import per.ljh.mapper.RectificationMainMapper;
 
 /**
@@ -30,7 +31,7 @@ public class RectificationMainService {
 	 * @param id
 	 * @return
 	 */
-	public RectificationMain loadRectificationMainById(String id) {
+	public RectificationMainExt loadRectificationMainById(String id) {
 		return checkRecordMapper.loadRectificationMainById(id);
 	}
 	

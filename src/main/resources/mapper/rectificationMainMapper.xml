@@ -14,6 +14,9 @@
 		<result column="recorded" property="recorded" />
 		<result column="remark" property="remark" />
 	</resultMap>
+	<resultMap type="RectificationMainExt" id="rectificationMainExtMap" extends="rectificationMainMap">
+		<result column="enterprise_name" property="enterpriseName" />
+	</resultMap>
 	<resultMap type="RectificationMainBranch" id="rectificationMainBranchMap">
 		<id column="id" property="id" />
 		<result column="check_date" property="checkDate" />
@@ -21,11 +24,12 @@
 		<result column="reviewed" property="reviewed" />
 		<result column="recorded" property="recorded" />
 	</resultMap>
-	<select id="loadRectificationMainById" resultMap="rectificationMainBranchMap">
-		select id, enterprise_id, check_date, check_person, duty_unit, duty_person,
-		finish_date, reviewed, recorded, remark
-		from rectification_main
-		where id=#{id}
+	<select id="loadRectificationMainById" resultMap="rectificationMainExtMap">
+		select a.id, a.enterprise_id, b.name as enterprise_name, a.check_date, a.check_person, a.duty_unit, a.duty_person,
+		a.finish_date, a.reviewed, a.recorded, a.remark
+		from rectification_main a
+		left join enterprise b on a.enterprise_id=b.id
+		where a.id=#{id}
 	</select>
 	<select id="loadRectificationMainBranchsByParams" resultMap="rectificationMainBranchMap" parameterType="Map">
 		select a.id, b.name as enterprise_name, a.check_date, a.reviewed, a.recorded

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import per.ljh.bean.RectificationMain;
 import per.ljh.bean.branch.RectificationMainBranch;
+import per.ljh.bean.ext.RectificationMainExt;
 
 /**
  * 
@@ -20,7 +21,7 @@ public interface RectificationMainMapper {
 	 * @param id
 	 * @return
 	 */
-	public RectificationMain loadRectificationMainById(String id);
+	public RectificationMainExt loadRectificationMainById(String id);
 	/**
 	 * 分页加载
 	 * @param params
