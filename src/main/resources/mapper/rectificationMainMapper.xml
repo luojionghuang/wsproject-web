@@ -16,6 +16,13 @@
 	</resultMap>
 	<resultMap type="RectificationMainExt" id="rectificationMainExtMap" extends="rectificationMainMap">
 		<result column="enterprise_name" property="enterpriseName" />
+		<collection property="links" ofType="RectificationLink">
+			<id column="link_id" property="id" />
+			<result column="link_situation_id" property="situationId" />
+			<result column="link_method" property="method" />
+			<result column="link_part" property="part" />
+			<result column="link_remark" property="remark" />
+		</collection>
 	</resultMap>
 	<resultMap type="RectificationMainBranch" id="rectificationMainBranchMap">
 		<id column="id" property="id" />
@@ -26,9 +33,11 @@
 	</resultMap>
 	<select id="loadRectificationMainById" resultMap="rectificationMainExtMap">
 		select a.id, a.enterprise_id, b.name as enterprise_name, a.check_date, a.check_person, a.duty_unit, a.duty_person,
-		a.finish_date, a.reviewed, a.recorded, a.remark
+		a.finish_date, a.reviewed, a.recorded, a.remark,
+		c.id as link_id, c.situation_id as link_situation_id, c.method as link_method_id, c.part as link_part, c.remark as link_remark
 		from rectification_main a
 		left join enterprise b on a.enterprise_id=b.id
+		left join rectification_link c on c.rectification_main_id=a.id
 		where a.id=#{id}
 	</select>
 	<select id="loadRectificationMainBranchsByParams" resultMap="rectificationMainBranchMap" parameterType="Map">
@@ -44,4 +53,10 @@
 		values(#{main.id}, #{main.enterpriseId}, #{main.checkDate}, #{main.checkPerson}, #{main.dutyUnit},
 		#{main.dutyPerson}, #{main.finishDate}, #{main.isReviewed}, #{main.isRecorded}), #{main.remark}
 	</insert>
+	<update id="modifyRectificationMain" parameterType="RectificationMain">
+		update rectification_main
+		set check_date=#{main.checkDate}, check_person=#{main.checkPerson}, duty_unit=#{main.dutyUnit},
+		duty_person=#{main.dutyPerson}, finish_date=#{main.finishDate}, reviewed=#{main.reviewed}, recorded=#{main.recorded}
+		where id=#{main.id}
+	</update>
 </mapper>

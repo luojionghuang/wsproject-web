@@ -34,5 +34,11 @@ public interface RectificationMainMapper {
 	 * @return
 	 */
 	public int insertRectificationMain(@Param("main")RectificationMain main);
+	/**
+	 * 修改
+	 * @param main
+	 * @return
+	 */
+	public int modifyRectificationMain(@Param("main")RectificationMain main);
 	
 }

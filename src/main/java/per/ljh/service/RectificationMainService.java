@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import per.ljh.bean.RectificationLink;
 import per.ljh.bean.RectificationMain;
 import per.ljh.bean.branch.RectificationMainBranch;
 import per.ljh.bean.ext.RectificationMainExt;
+import per.ljh.mapper.RectificationLinkMapper;
 import per.ljh.mapper.RectificationMainMapper;
 
 /**
@@ -20,11 +23,12 @@ import per.ljh.mapper.RectificationMainMapper;
  *
  */
 @Service
-@Transactional
 public class RectificationMainService {
 
 	@Autowired
-	private RectificationMainMapper checkRecordMapper;
+	private RectificationMainMapper rectificationMainMapper;
+	@Autowired
+	private RectificationLinkMapper rectificationLinkMapper;
 	
 	/**
 	 * 根据id加载
@@ -32,7 +36,7 @@ public class RectificationMainService {
 	 * @return
 	 */
 	public RectificationMainExt loadRectificationMainById(String id) {
-		return checkRecordMapper.loadRectificationMainById(id);
+		return rectificationMainMapper.loadRectificationMainById(id);
 	}
 	
 	/**
@@ -42,7 +46,7 @@ public class RectificationMainService {
 	 * @return
 	 */
 	public List<RectificationMainBranch> loadRectificationMainBranchsByParams(int curPage, int pageSize) {
-		return checkRecordMapper.loadRectificationMainBranchsByParams(serviceFilter1(curPage, pageSize));
+		return rectificationMainMapper.loadRectificationMainBranchsByParams(serviceFilter1(curPage, pageSize));
 	}
 	
 	/**
@@ -50,9 +54,50 @@ public class RectificationMainService {
 	 * @param record
 	 * @return
 	 */
-	public boolean insertCheckRecord(RectificationMain main) {
+	@Transactional
+	public boolean insertRectificationMain(RectificationMain main) {
 		main.setId(UUID.randomUUID().toString());
-		return checkRecordMapper.insertRectificationMain(main) > 0 ? true : false;
+		return rectificationMainMapper.insertRectificationMain(main) > 0 ? true : false;
+	}
+	
+	/**
+	 * 修改
+	 * @param main
+	 * @return
+	 */
+	@Transactional
+	public boolean modifyRectification(RectificationMainExt main) {
+		try {
+			//修改主表信息
+			rectificationMainMapper.modifyRectificationMain(main);
+			//获取明细
+			List<RectificationLink> links = main.getLinks();
+			if(links != null) {
+				//先删除明细行
+				StringBuffer noDelIds = new StringBuffer();
+				for(RectificationLink link : links) {
+					if(!StringUtils.isBlank(link.getId())) {
+						noDelIds.append("'").append(link.getId()).append("',");
+					}
+				}
+				if(noDelIds.length() > 0) {
+					rectificationLinkMapper.delRectificationLinkNotIn(noDelIds.substring(0, noDelIds.length() - 1));
+				}
+				//做添加修改
+				for(RectificationLink link : links) {
+					if(StringUtils.isBlank(link.getId())) {//如果id为空，则添加
+						link.setId(UUID.randomUUID().toString());
+						rectificationLinkMapper.insertRectificationLink(link);
+					} else {
+						rectificationLinkMapper.modifyRectificationLink(link);
+					}
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	/**

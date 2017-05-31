@@ -2,7 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.ljh.mapper.RectificationLinkMapper">
-	<resultMap type="Situation" id="rectificationLinkMap">
+	<resultMap type="RectificationLink" id="rectificationLinkMap">
 		<id column="id" property="id" />
 		<result column="rectification_main_id" property="rectificationMainId" />
 		<result column="situation_id" property="situationId" />
@@ -10,4 +10,17 @@
 		<result column="part" property="part" />
 		<result column="remark" property="remark" />
 	</resultMap>
+	<insert id="insertRectificationLink" parameterType="RectificationLink">
+		insert into rectification_link(id, rectification_main_id, situation_id, method, part, remark)
+		values(#{link.id}, #{link.rectificationMainId}, #{link.situationId}, #{link.method}, #{link.part}, #{link.remark})
+	</insert>
+	<update id="modifyRectificationLink" parameterType="RectificationLink">
+		update rectification_link
+		set situation_id=#{link.situationId}, method=#{link.method}, part=#{link.part}, remark=#{link.remark}
+		where id=#{link.id}
+	</update>
+	<delete id="delRectificationLinkNotIn">
+		delete from rectification_link
+		where id not in (#{ids})
+	</delete>
 </mapper>

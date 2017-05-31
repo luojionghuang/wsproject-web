@@ -16,9 +16,12 @@ public class JunitTest extends BaseJunit4Test {
 	private SituationService situationService;
 	@Autowired
 	private RectificationMainService checkRecordService;
+	@Autowired
+	private RectificationMainService mainService;
 	
 	@Test
 	public void test() {
+		mainService.loadRectificationMainById("297b1196-03d8-4810-8555-d8efe5e709f5");
 	}
 	
 }
