@@ -1,15 +1,19 @@
 package per.ljh.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import per.ljh.bean.RectificationLink;
 import per.ljh.bean.branch.RectificationMainBranch;
 import per.ljh.bean.ext.RectificationMainExt;
 import per.ljh.bean.plugin.Message;
@@ -69,12 +73,15 @@ public class RectificationController {
 	
 	@RequestMapping("/recordRectification")
 	@ResponseBody
-	public Message recordRectification(@ModelAttribute RectificationMainExt rectification) {
-		if(rectification == null) {
+	public Message recordRectification(String rectification) {
+		if(StringUtils.isBlank(rectification)) {
 			return new Message(0, "参数错误！");
 		}
-		if(rectificationMainService.modifyRectification(rectification)) {
-			return new Message(1, "修改成功！");
+		Map<String, Class<?>> clazzMap = new HashMap<String, Class<?>>();
+		clazzMap.put("links", RectificationLink.class);
+		RectificationMainExt ext = (RectificationMainExt)JSONObject.toBean(JSONObject.fromObject(rectification), RectificationMainExt.class, clazzMap);
+		if(rectificationMainService.modifyRectification(ext)) {
+			return new Message(1, "修改成功！", ext);
 		} else {
 			return new Message(0, "修改失败！");
 		}

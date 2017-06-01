@@ -1,5 +1,6 @@
 package per.ljh.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,19 +75,20 @@ public class RectificationMainService {
 			List<RectificationLink> links = main.getLinks();
 			if(links != null) {
 				//先删除明细行
-				StringBuffer noDelIds = new StringBuffer();
+				List<String> noDelIds = new ArrayList<String>();
 				for(RectificationLink link : links) {
 					if(!StringUtils.isBlank(link.getId())) {
-						noDelIds.append("'").append(link.getId()).append("',");
+						noDelIds.add(link.getId());
 					}
 				}
-				if(noDelIds.length() > 0) {
-					rectificationLinkMapper.delRectificationLinkNotIn(noDelIds.substring(0, noDelIds.length() - 1));
+				if(noDelIds.size() > 0) {
+					rectificationLinkMapper.delRectificationLinkNotIn(noDelIds);
 				}
 				//做添加修改
 				for(RectificationLink link : links) {
 					if(StringUtils.isBlank(link.getId())) {//如果id为空，则添加
 						link.setId(UUID.randomUUID().toString());
+						link.setRectificationMainId(main.getId());
 						rectificationLinkMapper.insertRectificationLink(link);
 					} else {
 						rectificationLinkMapper.modifyRectificationLink(link);

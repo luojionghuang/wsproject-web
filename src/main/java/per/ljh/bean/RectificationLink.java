@@ -16,6 +16,8 @@ public class RectificationLink {
 	private String method;
 	//违法行为或隐患所在部位
 	private String part;
+	//整改期限
+	private String rectificateDate;
 	//备注
 	private String remark;
 	
@@ -48,6 +50,12 @@ public class RectificationLink {
 	}
 	public void setPart(String part) {
 		this.part = part;
+	}
+	public String getRectificateDate() {
+		return rectificateDate;
+	}
+	public void setRectificateDate(String rectificateDate) {
+		this.rectificateDate = rectificateDate;
 	}
 	public String getRemark() {
 		return remark;

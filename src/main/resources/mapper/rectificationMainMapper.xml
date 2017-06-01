@@ -13,14 +13,18 @@
 		<result column="reviewed" property="reviewed" />
 		<result column="recorded" property="recorded" />
 		<result column="remark" property="remark" />
+		<result column="fill_unit" property="fillUnit" />
+		<result column="fill_person" property="fillPerson" />
 	</resultMap>
 	<resultMap type="RectificationMainExt" id="rectificationMainExtMap" extends="rectificationMainMap">
 		<result column="enterprise_name" property="enterpriseName" />
+		<result column="enterprise_address" property="enterpriseAddress" />
 		<collection property="links" ofType="RectificationLink">
 			<id column="link_id" property="id" />
 			<result column="link_situation_id" property="situationId" />
 			<result column="link_method" property="method" />
 			<result column="link_part" property="part" />
+			<result column="link_rectificate_date" property="rectificateDate" />
 			<result column="link_remark" property="remark" />
 		</collection>
 	</resultMap>
@@ -32,16 +36,16 @@
 		<result column="recorded" property="recorded" />
 	</resultMap>
 	<select id="loadRectificationMainById" resultMap="rectificationMainExtMap">
-		select a.id, a.enterprise_id, b.name as enterprise_name, a.check_date, a.check_person, a.duty_unit, a.duty_person,
-		a.finish_date, a.reviewed, a.recorded, a.remark,
-		c.id as link_id, c.situation_id as link_situation_id, c.method as link_method_id, c.part as link_part, c.remark as link_remark
+		select a.id, a.enterprise_id, b.name as enterprise_name, b.address as enterprise_address, a.check_date, a.check_person, a.duty_unit, a.duty_person,
+		a.finish_date, a.reviewed, a.recorded, a.remark, a.fill_unit, a.fill_person,
+		c.id as link_id, c.situation_id as link_situation_id, c.method as link_method, c.part as link_part, c.rectificate_date as link_rectificate_date, c.remark as link_remark
 		from rectification_main a
 		left join enterprise b on a.enterprise_id=b.id
 		left join rectification_link c on c.rectification_main_id=a.id
 		where a.id=#{id}
 	</select>
 	<select id="loadRectificationMainBranchsByParams" resultMap="rectificationMainBranchMap" parameterType="Map">
-		select a.id, b.name as enterprise_name, a.check_date, a.reviewed, a.recorded
+		select a.id, b.name as enterprise_name, a.check_date, a.reviewed, a.recorded, a.remark, a.fill_unit, a.fill_person
 		from rectification_main a
 		left join enterprise b on a.enterprise_id=b.id
 		order by a.check_date desc
@@ -49,14 +53,15 @@
 	</select>
 	<insert id="insertRectificationMain" parameterType="RectificationMain">
 		insert into rectification_main(id, enterprise_id, check_date, check_person, duty_unit,
-		duty_person, finish_date, reviewed, recorded)
+		duty_person, finish_date, reviewed, recorded, remark, fill_unit, fill_person)
 		values(#{main.id}, #{main.enterpriseId}, #{main.checkDate}, #{main.checkPerson}, #{main.dutyUnit},
-		#{main.dutyPerson}, #{main.finishDate}, #{main.isReviewed}, #{main.isRecorded}), #{main.remark}
+		#{main.dutyPerson}, #{main.finishDate}, #{main.isReviewed}, #{main.isRecorded}), #{main.remark}, #{main.fillUnit}, #{main.fillPerson}
 	</insert>
 	<update id="modifyRectificationMain" parameterType="RectificationMain">
 		update rectification_main
 		set check_date=#{main.checkDate}, check_person=#{main.checkPerson}, duty_unit=#{main.dutyUnit},
-		duty_person=#{main.dutyPerson}, finish_date=#{main.finishDate}, reviewed=#{main.reviewed}, recorded=#{main.recorded}
+		duty_person=#{main.dutyPerson}, finish_date=#{main.finishDate}, reviewed=#{main.reviewed}, recorded=#{main.recorded},
+		remark=#{main.remark}, fill_unit=#{main.fillUnit}, fill_person=#{main.fillPerson}
 		where id=#{main.id}
 	</update>
 </mapper>

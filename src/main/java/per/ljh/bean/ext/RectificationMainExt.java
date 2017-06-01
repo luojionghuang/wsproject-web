@@ -14,6 +14,8 @@ public class RectificationMainExt extends RectificationMain {
 
 	//企业名称
 	private String enterpriseName;
+	//企业地址
+	private String enterpriseAddress;
 	//明细表关联
 	private List<RectificationLink> links;
 	
@@ -22,6 +24,12 @@ public class RectificationMainExt extends RectificationMain {
 	}
 	public void setEnterpriseName(String enterpriseName) {
 		this.enterpriseName = enterpriseName;
+	}
+	public String getEnterpriseAddress() {
+		return enterpriseAddress;
+	}
+	public void setEnterpriseAddress(String enterpriseAddress) {
+		this.enterpriseAddress = enterpriseAddress;
 	}
 	public List<RectificationLink> getLinks() {
 		return links;

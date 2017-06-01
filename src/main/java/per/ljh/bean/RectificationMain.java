@@ -27,6 +27,10 @@ public class RectificationMain {
 	private int recorded;
 	//备注
 	private String remark;
+	//填报单位
+	private String fillUnit;
+	//填报人
+	private String fillPerson;
 	
 	public String getId() {
 		return id;
@@ -87,6 +91,18 @@ public class RectificationMain {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getFillUnit() {
+		return fillUnit;
+	}
+	public void setFillUnit(String fillUnit) {
+		this.fillUnit = fillUnit;
+	}
+	public String getFillPerson() {
+		return fillPerson;
+	}
+	public void setFillPerson(String fillPerson) {
+		this.fillPerson = fillPerson;
 	}
 	
 }

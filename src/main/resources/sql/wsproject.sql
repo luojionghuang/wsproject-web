@@ -56,6 +56,7 @@ CREATE TABLE `rectification_link` (
   `situation_id` varchar(50) DEFAULT NULL COMMENT 'situation表对应ID，违法行为或隐患情况',
   `method` varchar(255) DEFAULT NULL COMMENT '整改落实情况或处置措施',
   `part` varchar(255) DEFAULT NULL COMMENT '违法行为或隐患所在部位',
+  `rectificate_date` varchar(50) DEFAULT NULL COMMENT '整改期限',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='整改表';
@@ -67,6 +68,7 @@ CREATE TABLE `rectification_link` (
 
 LOCK TABLES `rectification_link` WRITE;
 /*!40000 ALTER TABLE `rectification_link` DISABLE KEYS */;
+INSERT INTO `rectification_link` VALUES ('46e25332-bb52-41cc-bea1-cf8a22693eed','297b1196-03d8-4810-8555-d8efe5e709f5','1','1','','2017-06-22','2'),('804a97cd-df51-4020-98f1-9d656b2bd899','297b1196-03d8-4810-8555-d8efe5e709f5','6','5','','','6'),('f9c49de8-c3b4-4d83-ac32-7100d58fd871','297b1196-03d8-4810-8555-d8efe5e709f5','5','2','','2017-06-01','3');
 /*!40000 ALTER TABLE `rectification_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,6 +90,8 @@ CREATE TABLE `rectification_main` (
   `reviewed` int(1) DEFAULT '0' COMMENT '是否复查',
   `recorded` int(1) DEFAULT '0' COMMENT '是否立案',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `fill_unit` varchar(255) DEFAULT NULL COMMENT '填报单位',
+  `fill_person` varchar(255) DEFAULT NULL COMMENT '填报人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='检查记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -98,7 +102,7 @@ CREATE TABLE `rectification_main` (
 
 LOCK TABLES `rectification_main` WRITE;
 /*!40000 ALTER TABLE `rectification_main` DISABLE KEYS */;
-INSERT INTO `rectification_main` VALUES ('297b1196-03d8-4810-8555-d8efe5e709f5','5e9ea738-6dc7-4223-bc5f-7d15fa51a33e','2017-05-23',NULL,NULL,NULL,NULL,1,0,NULL);
+INSERT INTO `rectification_main` VALUES ('297b1196-03d8-4810-8555-d8efe5e709f5','5e9ea738-6dc7-4223-bc5f-7d15fa51a33e','2017-05-23','123','123','123','2017-06-20',1,0,'123123','啊啊','打的');
 /*!40000 ALTER TABLE `rectification_main` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-24 23:30:02
+-- Dump completed on 2017-06-01 23:44:42
