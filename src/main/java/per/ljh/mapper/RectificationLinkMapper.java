@@ -1,6 +1,6 @@
 package per.ljh.mapper;
 
-import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -27,9 +27,9 @@ public interface RectificationLinkMapper {
 	int modifyRectificationLink(@Param("link")RectificationLink link);
 	/**
 	 * not in删除
-	 * @param ids
+	 * @param params mainId  list
 	 * @return
 	 */
-	int delRectificationLinkNotIn(List<String> ids);
+	int delRectificationLinkNotIn(Map<String, Object> params);
 	
 }

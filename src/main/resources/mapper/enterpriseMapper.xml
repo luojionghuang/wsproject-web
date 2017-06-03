@@ -13,6 +13,10 @@
 		order by create_time desc
 		limit #{start}, #{pageSize}
 	</select>
+	<select id="loadEnterprises" resultMap="enterpriseMap">
+		select id, name, address, create_time from enterprise
+		order by create_time desc
+	</select>
 	<insert id="insertEnterprise" parameterType="Enterprise">
 		insert into enterprise(id, name, address, create_time)
 		values(#{enterprise.id}, #{enterprise.name}, #{enterprise.address}, sysdate())

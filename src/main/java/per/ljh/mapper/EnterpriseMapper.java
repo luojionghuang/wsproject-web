@@ -21,6 +21,11 @@ public interface EnterpriseMapper {
 	 */
 	List<Enterprise> loadEnterprisesByParams(Map<String, Object> params);
 	/**
+	 * 加载全部企业
+	 * @return
+	 */
+	List<Enterprise> loadEnterprises();
+	/**
 	 * 添加企业信息
 	 * @param enterprise
 	 * @return

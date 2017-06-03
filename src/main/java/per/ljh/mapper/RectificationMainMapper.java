@@ -23,6 +23,12 @@ public interface RectificationMainMapper {
 	 */
 	public RectificationMainExt loadRectificationMainById(String id);
 	/**
+	 * 分页个数
+	 * @param params
+	 * @return
+	 */
+	public int loadCountByParams(Map<String, Object> params);
+	/**
 	 * 分页加载
 	 * @param params
 	 * @return

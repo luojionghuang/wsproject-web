@@ -20,9 +20,9 @@
 		set situation_id=#{link.situationId}, method=#{link.method}, part=#{link.part}, rectificate_date=#{link.rectificateDate}, remark=#{link.remark}
 		where id=#{link.id}
 	</update>
-	<delete id="delRectificationLinkNotIn">
+	<delete id="delRectificationLinkNotIn" parameterType="Map">
 		delete from rectification_link
-		where id not in
+		where rectification_main_id=#{mainId} and id not in
 		<foreach item="item" collection="list" open="(" close=")" separator=",">
 			#{item}
 		</foreach>

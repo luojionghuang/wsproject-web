@@ -41,6 +41,14 @@ public class RectificationMainService {
 	}
 	
 	/**
+	 * 分页总数
+	 * @return
+	 */
+	public int loadCountByParams() {
+		return rectificationMainMapper.loadCountByParams(new HashMap<String, Object>());
+	}
+	
+	/**
 	 * 分页加载
 	 * @param curPage
 	 * @param pageSize
@@ -82,7 +90,7 @@ public class RectificationMainService {
 					}
 				}
 				if(noDelIds.size() > 0) {
-					rectificationLinkMapper.delRectificationLinkNotIn(noDelIds);
+					rectificationLinkMapper.delRectificationLinkNotIn(serviceFilter2(main.getId(), noDelIds));
 				}
 				//做添加修改
 				for(RectificationLink link : links) {
@@ -113,6 +121,13 @@ public class RectificationMainService {
 		int start = (curPage - 1) * pageSize;
 		params.put("start", start);
 		params.put("pageSize", pageSize);
+		return params;
+	}
+	
+	private static Map<String, Object> serviceFilter2(String mainId, List<String> list) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("mainId", mainId);
+		params.put("list", list);
 		return params;
 	}
 	

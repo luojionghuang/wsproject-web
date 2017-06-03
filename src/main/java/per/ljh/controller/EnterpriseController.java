@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import per.ljh.bean.Enterprise;
 import per.ljh.bean.plugin.Message;
@@ -28,6 +29,8 @@ public class EnterpriseController {
 	 * @param pageSize
 	 * @return
 	 */
+	@RequestMapping("/loadEnterprises")
+	@ResponseBody
 	public List<Enterprise> loadEnterprises(Integer curPage, Integer pageSize) {
 		if(curPage == null) {
 			return null;
@@ -38,12 +41,20 @@ public class EnterpriseController {
 		return enterpriseService.loadEnterprisesByParams(curPage, pageSize);
 	}
 	
+	@RequestMapping("/loadAllEnterprises")
+	@ResponseBody
+	public List<Enterprise> loadAllEnterprises() {
+		return enterpriseService.loadEnterprises();
+	}
+	
 	/**
 	 * 录入企业信息
 	 * @param name
 	 * @param address
 	 * @return
 	 */
+	@RequestMapping("/insertEnterprise")
+	@ResponseBody
 	public Message insertEnterprise(String name, String address) {
 		Enterprise enterprise = new Enterprise();
 		enterprise.setName(name);

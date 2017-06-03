@@ -44,6 +44,9 @@
 		left join rectification_link c on c.rectification_main_id=a.id
 		where a.id=#{id}
 	</select>
+	<select id="loadCountByParams" resultType="int">
+		select count(*) from rectification_main
+	</select>
 	<select id="loadRectificationMainBranchsByParams" resultMap="rectificationMainBranchMap" parameterType="Map">
 		select a.id, b.name as enterprise_name, a.check_date, a.reviewed, a.recorded, a.remark, a.fill_unit, a.fill_person
 		from rectification_main a
@@ -55,7 +58,7 @@
 		insert into rectification_main(id, enterprise_id, check_date, check_person, duty_unit,
 		duty_person, finish_date, reviewed, recorded, remark, fill_unit, fill_person)
 		values(#{main.id}, #{main.enterpriseId}, #{main.checkDate}, #{main.checkPerson}, #{main.dutyUnit},
-		#{main.dutyPerson}, #{main.finishDate}, #{main.isReviewed}, #{main.isRecorded}), #{main.remark}, #{main.fillUnit}, #{main.fillPerson}
+		#{main.dutyPerson}, #{main.finishDate}, #{main.reviewed}, #{main.recorded}, #{main.remark}, #{main.fillUnit}, #{main.fillPerson})
 	</insert>
 	<update id="modifyRectificationMain" parameterType="RectificationMain">
 		update rectification_main

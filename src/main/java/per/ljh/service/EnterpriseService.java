@@ -34,6 +34,10 @@ public class EnterpriseService {
 		return enterpriseMapper.loadEnterprisesByParams(serviceFilter1(curPage, pageSize));
 	}
 	
+	public List<Enterprise> loadEnterprises() {
+		return enterpriseMapper.loadEnterprises();
+	}
+	
 	/**
 	 * 添加企业信息
 	 * @param enterprise
