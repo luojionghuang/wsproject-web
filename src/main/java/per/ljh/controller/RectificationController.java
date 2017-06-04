@@ -123,31 +123,35 @@ public class RectificationController {
 		}
 	}
 	
-//	@RequestMapping("/exportDoc")
-//	public void exportDoc(String rectificationMainId, HttpServletResponse resp) {
-//		try {
-//			RectificationMainExt rm = rectificationMainService.loadRectificationMainById(rectificationMainId);
-//			System.out.println("bb");
-//			if(rm != null) {
-//				resp.setContentType("application/x-download;charset=utf-8");
-//				resp.setHeader("Content-Disposition", "attachment;fileName=" + "sss.docx");
-//				Map<String, Object> datas = new HashMap<String, Object>();
-//				datas.put("checkDate", rm.getCheckDate());
-//				datas.put("enterpriseName", rm.getEnterpriseName());
-//				datas.put("enterpriseAddress", rm.getEnterpriseAddress());
-//				datas.put("checkPerson", rm.getCheckPerson());
-//				datas.put("dutyUnit", rm.getDutyUnit());
-//				datas.put("dutyPerson", rm.getDutyPerson());
-//				datas.put("finishDate", rm.getFinishDate());
-//				datas.put("remark", rm.getRemark());
-//				XWPFTemplate doc = DocTemplateUtil.generateDoc("D://rectification-template.docx", datas);
-//				OutputStream out = resp.getOutputStream();
-//				doc.write(out);
-//				out.close();
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@RequestMapping("/exportDoc")
+	public void exportDoc(String rectificationMainId, HttpServletResponse resp) {
+		try {
+			RectificationMainExt rm = rectificationMainService.loadRectificationMainById(rectificationMainId);
+			System.out.println("bb");
+			if(rm != null) {
+				resp.setContentType("application/x-download;charset=utf-8");
+				resp.setHeader("Content-Disposition", "attachment;fileName=" + rm.getEnterpriseName() + "-" + rm.getCheckDate() + "-" + "整改" + ".docx");
+				Map<String, Object> datas = new HashMap<String, Object>();
+				datas.put("checkDate", rm.getCheckDate());
+				datas.put("enterpriseName", rm.getEnterpriseName());
+				datas.put("enterpriseAddress", rm.getEnterpriseAddress());
+				datas.put("checkPerson", rm.getCheckPerson());
+				datas.put("dutyUnit", rm.getDutyUnit());
+				datas.put("dutyPerson", rm.getDutyPerson());
+				datas.put("finishDate", rm.getFinishDate());
+				datas.put("remark", rm.getRemark());
+				datas.put("fillUnit", rm.getFillUnit());
+				datas.put("fillPerson", rm.getFillPerson());
+//				List<String> situationList = new ArrayList<String>();
+//				datas.put("situation", new TableRenderData(null, ));
+				XWPFTemplate doc = DocTemplateUtil.generateDoc("D://rectification-template.docx", datas);
+				OutputStream out = resp.getOutputStream();
+				doc.write(out);
+				out.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
