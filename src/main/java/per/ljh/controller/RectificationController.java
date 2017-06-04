@@ -1,8 +1,12 @@
 package per.ljh.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.deepoove.poi.XWPFTemplate;
 
 import net.sf.json.JSONObject;
 import per.ljh.bean.RectificationLink;
@@ -19,6 +25,7 @@ import per.ljh.bean.ext.RectificationMainExt;
 import per.ljh.bean.plugin.Message;
 import per.ljh.bean.plugin.PagePlugin;
 import per.ljh.service.RectificationMainService;
+import per.ljh.util.DocTemplateUtil;
 
 /**
  * 
@@ -118,11 +125,28 @@ public class RectificationController {
 	
 //	@RequestMapping("/exportDoc")
 //	public void exportDoc(String rectificationMainId, HttpServletResponse resp) {
-//		RectificationMainExt rm = rectificationMainService.loadRectificationMainById(rectificationMainId);
-//		if(rm != null) {
-//			resp.setContentType("multipart/form-data");
-//			resp.setHeader("Content-Disposition", "attachment;fileName=" + ".docx");
-////			DocTemplateUtil.generateDoc("", datas)
+//		try {
+//			RectificationMainExt rm = rectificationMainService.loadRectificationMainById(rectificationMainId);
+//			System.out.println("bb");
+//			if(rm != null) {
+//				resp.setContentType("application/x-download;charset=utf-8");
+//				resp.setHeader("Content-Disposition", "attachment;fileName=" + "sss.docx");
+//				Map<String, Object> datas = new HashMap<String, Object>();
+//				datas.put("checkDate", rm.getCheckDate());
+//				datas.put("enterpriseName", rm.getEnterpriseName());
+//				datas.put("enterpriseAddress", rm.getEnterpriseAddress());
+//				datas.put("checkPerson", rm.getCheckPerson());
+//				datas.put("dutyUnit", rm.getDutyUnit());
+//				datas.put("dutyPerson", rm.getDutyPerson());
+//				datas.put("finishDate", rm.getFinishDate());
+//				datas.put("remark", rm.getRemark());
+//				XWPFTemplate doc = DocTemplateUtil.generateDoc("D://rectification-template.docx", datas);
+//				OutputStream out = resp.getOutputStream();
+//				doc.write(out);
+//				out.close();
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
 //		}
 //	}
 	
