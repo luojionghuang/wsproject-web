@@ -123,6 +123,23 @@ public class RectificationController {
 		}
 	}
 	
+	/**
+	 * 删除
+	 * @param rectificationMainId
+	 * @return
+	 */
+	@RequestMapping("/delRectification")
+	@ResponseBody
+	public Message delRectification(String rectificationMainId) {
+		try {
+			rectificationMainService.delRectificationById(rectificationMainId);
+			return new Message(1, "删除成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Message(0, "删除失败！");
+	}
+	
 	@RequestMapping("/exportDoc")
 	public void exportDoc(String rectificationMainId, HttpServletResponse resp) {
 		try {

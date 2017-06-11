@@ -27,4 +27,7 @@
 			#{item}
 		</foreach>
 	</delete>
+	<delete id="delRectificationLinkByMainId">
+		delete from rectification_link where rectification_main_id=#{mainId}
+	</delete>
 </mapper>

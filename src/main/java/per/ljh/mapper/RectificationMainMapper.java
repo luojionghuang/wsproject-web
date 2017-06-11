@@ -21,30 +21,36 @@ public interface RectificationMainMapper {
 	 * @param id
 	 * @return
 	 */
-	public RectificationMainExt loadRectificationMainById(String id);
+	RectificationMainExt loadRectificationMainById(String id);
 	/**
 	 * 分页个数
 	 * @param params
 	 * @return
 	 */
-	public int loadCountByParams(Map<String, Object> params);
+	int loadCountByParams(Map<String, Object> params);
 	/**
 	 * 分页加载
 	 * @param params
 	 * @return
 	 */
-	public List<RectificationMainBranch> loadRectificationMainBranchsByParams(Map<String, Object> params);
+	List<RectificationMainBranch> loadRectificationMainBranchsByParams(Map<String, Object> params);
 	/**
 	 * 插入检查结果
 	 * @param record
 	 * @return
 	 */
-	public int insertRectificationMain(@Param("main")RectificationMain main);
+	int insertRectificationMain(@Param("main")RectificationMain main);
 	/**
 	 * 修改
 	 * @param main
 	 * @return
 	 */
-	public int modifyRectificationMain(@Param("main")RectificationMain main);
+	int modifyRectificationMain(@Param("main")RectificationMain main);
+	/**
+	 * 根据id删除
+	 * @param id
+	 * @return
+	 */
+	int delRectificationMainById(String id);
 	
 }

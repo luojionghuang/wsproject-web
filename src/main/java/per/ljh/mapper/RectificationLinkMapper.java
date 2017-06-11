@@ -31,5 +31,11 @@ public interface RectificationLinkMapper {
 	 * @return
 	 */
 	int delRectificationLinkNotIn(Map<String, Object> params);
+	/**
+	 * 根据mainId删除
+	 * @param mainId
+	 * @return
+	 */
+	int delRectificationLinkByMainId(String mainId);
 	
 }

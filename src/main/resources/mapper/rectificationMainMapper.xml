@@ -67,4 +67,7 @@
 		remark=#{main.remark}, fill_unit=#{main.fillUnit}, fill_person=#{main.fillPerson}
 		where id=#{main.id}
 	</update>
+	<delete id="delRectificationMainById">
+		delete from rectification_main where id=#{id}
+	</delete>
 </mapper>

@@ -111,6 +111,17 @@ public class RectificationMainService {
 	}
 	
 	/**
+	 * 删除检查
+	 * @param id
+	 * @return
+	 */
+	public boolean delRectificationById(String id) {
+		rectificationLinkMapper.delRectificationLinkByMainId(id);
+		rectificationMainMapper.delRectificationMainById(id);
+		return true;
+	}
+	
+	/**
 	 * start、pageSize
 	 * @param curPage
 	 * @param pageSize
