@@ -3,7 +3,6 @@ package per.ljh.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +47,16 @@ public class SituationService {
 	 * @return
 	 */
 	public boolean insertSituation(Situation situation) {
-		situation.setId(UUID.randomUUID().toString());
 		return situationMapper.insertSituation(situation) > 0 ? true : false;
+	}
+	
+	/**
+	 * 修改违法行为
+	 * @param situation
+	 * @return
+	 */
+	public boolean modifySituation(Situation situation) {
+		return situationMapper.modifySituation(situation) > 0 ? true : false;
 	}
 	
 	/**
@@ -57,7 +64,7 @@ public class SituationService {
 	 * @param id
 	 * @return
 	 */
-	public boolean delSituationById(String id) {
+	public boolean delSituationById(Integer id) {
 		return situationMapper.delSituationById(id) > 0 ? true :false;
 	}
 	

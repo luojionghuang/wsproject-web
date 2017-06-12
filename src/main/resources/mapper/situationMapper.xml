@@ -17,9 +17,13 @@
 		limit #{start}, #{pageSize}
 	</select>
 	<insert id="insertSituation" parameterType="Situation">
-		insert into situation(id, name, sort)
-		values(#{situation.id}, #{situation.name}, #{situation.sort})
+		insert into situation(name, sort)
+		values(#{situation.name}, #{situation.sort})
 	</insert>
+	<update id="modifySituation" parameterType="Situation">
+		update situation set name=#{situation.name}, sort=#{situation.sort}
+		where id=#{situation.id}
+	</update>
 	<delete id="delSituationById">
 		delete from situation where id=#{id}
 	</delete>

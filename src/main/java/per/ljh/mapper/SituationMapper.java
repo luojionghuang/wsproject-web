@@ -32,10 +32,16 @@ public interface SituationMapper {
 	 */
 	public int insertSituation(@Param("situation")Situation situation);
 	/**
+	 * 修改违法行为
+	 * @param situation
+	 * @return
+	 */
+	public int modifySituation(@Param("situation")Situation situation);
+	/**
 	 * 根据id删除违法行为
 	 * @param id
 	 * @return
 	 */
-	public int delSituationById(String id);
+	public int delSituationById(Integer id);
 	
 }

@@ -7,16 +7,16 @@ package per.ljh.bean;
  */
 public class Situation {
 
-	private String id;
+	private Integer id;
 	//违法行为或隐患情况
 	private String name;
 	//顺序，由低到高
 	private Integer sort;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
